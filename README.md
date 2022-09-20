@@ -1,9 +1,9 @@
 # Openpay BBVA
 This package integrates the [Openpay iOS](https://github.com/open-pay/openpay-swift-ios "Openpay iOS") and [Openpay Android](https://github.com/open-pay/openpay-android "Openpay Android") libraries, with the [Openpay API](https://documents.openpay.mx/docs/api/#api-endpoints "Openpay API") to generate the Device Session ID used in the Openpay [Anti-Fraud System](https://documents.openpay.mx/docs/fraud-tool.html "Anti-Fraud System") and the [Card Token](https://documents.openpay.mx/docs/api/#crear-una-tarjeta-con-token "Card Token") for the card payments through their [API.](https://documents.openpay.mx/docs/api/ "API.")
 
-# Usage
+## Usage
 
-## Initialize OpenpayBBVA instance
+### Initialize OpenpayBBVA instance
 
 ````    
         // Example MERCHANT_ID and PUBLIC_API_KEY
@@ -15,7 +15,7 @@ This package integrates the [Openpay iOS](https://github.com/open-pay/openpay-sw
 
 ````
 
-## Get your Device Session ID (iOS and Android only)
+### Get your Device Session ID (iOS and Android only)
 
 ````
 
@@ -36,7 +36,7 @@ This package integrates the [Openpay iOS](https://github.com/open-pay/openpay-sw
 
 ````
 
-## Get your Card Token
+### Get your Card Token
 
 ````
 
