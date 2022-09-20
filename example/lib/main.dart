@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
     try {
       token = await openpay.getCardToken(
               'Jose Perez Cruz', '411111111111111', '8', '23', '213') ??
-          'Error getting the device session id';
+          'Error getting the card token';
     } catch (e) {
       rethrow;
     }
