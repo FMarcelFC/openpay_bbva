@@ -32,6 +32,9 @@ flutter:
         fileName: openpay_bbva.dart
       macos: 
         dartPluginClass: OpenpayBBVA
+        fileName: openpay_bbva.dart
       windows: 
         dartPluginClass: OpenpayBBVA
+        fileName: openpay_bbva.dart
+
 
