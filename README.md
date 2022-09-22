@@ -15,7 +15,7 @@ This package integrates the [Openpay iOS](https://github.com/open-pay/openpay-sw
 
 ````
 
-### Get your Device Session ID (iOS and Android only)
+### Get your Device Session ID *(iOS and Android only)*
 
 ````
 
