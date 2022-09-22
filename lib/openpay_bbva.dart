@@ -74,8 +74,8 @@ class OpenpayBBVA extends Openpay {
 
 /// [OpCountry] is the class used to select your country in the Openpay instance.
 const Map<OpCountry, String> _countries = {
-  OpCountry.Colombia: 'Colombia',
-  OpCountry.Mexico: 'Mexico'
+  OpCountry.Colombia: 'CO',
+  OpCountry.Mexico: 'MX'
 };
 
 enum OpCountry { Colombia, Mexico }

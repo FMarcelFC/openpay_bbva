@@ -28,6 +28,10 @@ flutter:
       ios:
         pluginClass: OpenpayBBVAPlugin
       web:
-        pluginClass: OpenpayBBVA
+        dartPluginClass: OpenpayBBVA
         fileName: openpay_bbva.dart
+      macos: 
+        dartPluginClass: OpenpayBBVA
+      windows: 
+        dartPluginClass: OpenpayBBVA
 
