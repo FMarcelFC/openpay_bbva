@@ -20,8 +20,8 @@ class _MyAppState extends State<MyApp> {
   OpenpayBBVA openpay = OpenpayBBVA(
       "m2tmftuv5jao96rrezj2", // Replace this with your MERCHANT_ID
       "pk_d5e9bff37db4468da3f80148bb94f263", // Replace this with your PUBLIC_API_KEY
-      productionMode: false,
-      opCountry: OpCountry.Mexico); // True if you want production mode on
+      productionMode: false, // True if you want production mode on
+      opCountry: OpCountry.Mexico);
   @override
   void initState() {
     super.initState();
