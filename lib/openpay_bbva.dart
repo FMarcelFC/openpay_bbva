@@ -6,9 +6,9 @@ import 'package:openpay/openpay.dart';
 class OpenpayBBVA extends Openpay {
   @visibleForTesting
 
-  /// Both [MERCHANT_ID] as [PUBLIC_API_KEY], are obtained from the homepage of your account on the Openpay (http://www.openpay.mx/) site.
-  final String MERCHANT_ID;
-  final String PUBLIC_API_KEY;
+  /// Both [merchantId] as [publicApiKey], are obtained from the homepage of your account on the Openpay (http://www.openpay.mx/) site.
+  final String merchantId;
+  final String publicApiKey;
 
   /// [productionMode] true if production, false if debugging.
   final bool productionMode;
@@ -20,9 +20,9 @@ class OpenpayBBVA extends Openpay {
   static const _methodChannel = MethodChannel('openpay_bbva');
 
   /// [OpenpayBBVA] is the class that allows you to get the device ID and card token from Openpay needed for your card payments.
-  OpenpayBBVA(this.MERCHANT_ID, this.PUBLIC_API_KEY,
+  OpenpayBBVA(this.merchantId, this.publicApiKey,
       {required this.productionMode, this.opCountry = OpCountry.Mexico})
-      : super(MERCHANT_ID, PUBLIC_API_KEY,
+      : super(merchantId, publicApiKey,
             isSandboxMode: !productionMode,
             country: opCountry == OpCountry.Colombia
                 ? Country.Colombia
@@ -31,15 +31,15 @@ class OpenpayBBVA extends Openpay {
   /// Get the selected [opcountry].
   String? get opcountry => _countries[this.opCountry];
 
-  /// The [getDeviceID] method uses the [MERCHANT_ID] and [PUBLIC_API_KEY] provided by Openpay to get the Device Session ID and return it in the [deviceID] variable as a String.
+  /// The [getDeviceID] method uses the [merchantId] and [publicApiKey] provided by Openpay to get the Device Session ID and return it in the [deviceID] variable as a String.
   ///
   /// This is only implemented for iOS and Android.
   Future<String?> getDeviceID() async {
     try {
       final deviceID =
           await _methodChannel.invokeMethod<String>('getDeviceId', {
-        'MERCHANT_ID': MERCHANT_ID,
-        'API_KEY': PUBLIC_API_KEY,
+        'MERCHANT_ID': merchantId,
+        'API_KEY': publicApiKey,
         'productionMode': productionMode,
         'country': this.opcountry
       });
