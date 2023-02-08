@@ -1,4 +1,4 @@
 #import <Flutter/Flutter.h>
 
-@interface OpenpayBBVAPlugin : NSObject<FlutterPlugin>
+@interface OpenpayBbvaPlugin : NSObject<FlutterPlugin>
 @end

@@ -14,3 +14,7 @@
 ## 1.0.3
 
 * Cammel case fixed.
+
+## 1.0.4
+
+* Fixed Java plugin error.

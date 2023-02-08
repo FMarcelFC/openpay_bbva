@@ -2,10 +2,10 @@ import Flutter
 import UIKit
 import OpenpayKit
 
-public class SwiftOpenpayBBVAPlugin: NSObject, FlutterPlugin {
+public class SwiftOpenpayBbvaPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "openpay_bbva", binaryMessenger: registrar.messenger())
-    let instance = SwiftOpenpayBBVAPlugin()
+    let instance = SwiftOpenpayBbvaPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

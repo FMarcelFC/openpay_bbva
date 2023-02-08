@@ -1,8 +1,7 @@
 name: openpay_bbva
 description: This is a package that uses the Openpay iOS and Openpay Android libraries to tokenize payments through the BBVA Openpay Platform.
-version: 1.0.3
+version: 1.0.4
 homepage: https://github.com/FMarcelFC
-repository: https://github.com/FMarcelFC/openpay_bbva
 
 environment:
   sdk: '>=2.18.0 <3.0.0'
@@ -11,26 +10,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_web_plugins:
-    sdk: flutter
+  plugin_platform_interface: ^2.0.2
   openpay: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_lints: ^2.0.0
 
 
 flutter:
+
   plugin:
     platforms:
       android:
         package: com.fortune.openpay_bbva
-        pluginClass: OpenpayBBVAPlugin
+        pluginClass: OpenpayBbvaPlugin
       ios:
-        pluginClass: OpenpayBBVAPlugin
+        pluginClass: OpenpayBbvaPlugin
       web:
         dartPluginClass: OpenpayBBVA
         fileName: openpay_bbva.dart
-
+      
 
 

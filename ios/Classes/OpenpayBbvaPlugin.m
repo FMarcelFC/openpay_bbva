@@ -1,4 +1,4 @@
-#import "OpenpayBBVAPlugin.h"
+#import "OpenpayBbvaPlugin.h"
 #if __has_include(<openpay_bbva/openpay_bbva-Swift.h>)
 #import <openpay_bbva/openpay_bbva-Swift.h>
 #else
@@ -8,8 +8,8 @@
 #import "openpay_bbva-Swift.h"
 #endif
 
-@implementation OpenpayBBVAPlugin
+@implementation OpenpayBbvaPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftOpenpayBBVAPlugin registerWithRegistrar:registrar];
+  [SwiftOpenpayBbvaPlugin registerWithRegistrar:registrar];
 }
 @end

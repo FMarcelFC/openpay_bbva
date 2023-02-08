@@ -14,7 +14,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
 /** OpenpayBBVAPlugin */
-public class OpenpayBBVAPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
+public class OpenpayBbvaPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
   private MethodChannel channel;
   private Activity activity;
 
