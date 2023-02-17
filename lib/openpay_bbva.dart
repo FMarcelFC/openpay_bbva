@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:openpay/openpay.dart';
+import 'package:openpay_bbva/openpay_api.dart';
 
 /// [OpenpayBBVA] is the class that allows you to get the device ID and card token from Openpay needed for your card payments.
 class OpenpayBBVA extends Openpay {
@@ -13,23 +13,20 @@ class OpenpayBBVA extends Openpay {
   /// [productionMode] true if production, false if debugging.
   final bool productionMode;
 
-  /// Use the [OpCountry] class which has the options of Colombia, Perú and Mexico (by default). For example: [opCountry : OpCountry.COL]
-  OpCountry? opCountry;
+  /// Use the [Country] class which has the options of Colombia, Perú and Mexico (by default). For example: [Country : Country.Mexico]
+  Country country;
 
   /// The [_methodChannel] connects to the Openpay libraries to use native code.
   static const _methodChannel = MethodChannel('openpay_bbva');
 
   /// [OpenpayBBVA] is the class that allows you to get the device ID and card token from Openpay needed for your card payments.
   OpenpayBBVA(this.merchantId, this.publicApiKey,
-      {required this.productionMode, this.opCountry = OpCountry.Mexico})
+      {required this.productionMode, this.country = Country.Mexico})
       : super(merchantId, publicApiKey,
-            isSandboxMode: !productionMode,
-            country: opCountry == OpCountry.Colombia
-                ? Country.Colombia
-                : Country.Mexico);
+            isSandboxMode: !productionMode, country: country);
 
   /// Get the selected [opcountry].
-  String? get opcountry => _countries[this.opCountry];
+  String? get opcountry => _countries[this.country];
 
   /// The [getDeviceID] method uses the [merchantId] and [publicApiKey] provided by Openpay to get the Device Session ID and return it in the [deviceID] variable as a String.
   ///
@@ -72,10 +69,9 @@ class OpenpayBBVA extends Openpay {
   }
 }
 
-/// [OpCountry] is the class used to select your country in the Openpay instance.
-const Map<OpCountry, String> _countries = {
-  OpCountry.Colombia: 'CO',
-  OpCountry.Mexico: 'MX'
+/// [Country] is the class used to select your country in the Openpay instance.
+const Map<Country, String> _countries = {
+  Country.Colombia: 'CO',
+  Country.Mexico: 'MX',
+  Country.Peru: 'PE'
 };
-
-enum OpCountry { Colombia, Mexico }

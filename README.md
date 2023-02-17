@@ -11,7 +11,7 @@ This package integrates the [Openpay iOS](https://github.com/open-pay/openpay-sw
             "m2tmftuv5jao96rrezj2", // Replace this with your MERCHANT_ID
             "pk_d5e9bff37db4468da3f80148bb94f263", // Replace this with your PUBLIC_API_KEY
             productionMode: false, // True if you want production mode on
-            opCountry: OpCountry.Mexico); // Mexico by default, also Colombia supported
+            Country: Country.Mexico); // Mexico by default, also Colombia supported
 
 ````
 

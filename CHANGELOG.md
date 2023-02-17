@@ -18,3 +18,15 @@
 ## 1.0.4
 
 * Fixed Java plugin error.
+
+## 1.0.5
+
+* Fixed error in pubspec.yaml and added support to Peru.
+
+## 1.0.6
+
+* Fixed error in example, OpCountry now is only Country.
+
+## 1.0.7
+
+* Fixed error in README, OpCountry now is only Country.

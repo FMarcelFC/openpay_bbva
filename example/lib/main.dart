@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openpay_bbva/openpay_api.dart';
 import 'dart:async';
 
 import 'package:openpay_bbva/openpay_bbva.dart';
@@ -21,7 +22,8 @@ class _MyAppState extends State<MyApp> {
       "m2tmftuv5jao96rrezj2", // Replace this with your MERCHANT_ID
       "pk_d5e9bff37db4468da3f80148bb94f263", // Replace this with your PUBLIC_API_KEY
       productionMode: false, // True if you want production mode on
-      opCountry: OpCountry.Mexico);
+      country: Country
+          .Mexico); // Mexico by default, also Colombia and Peru supported
   @override
   void initState() {
     super.initState();
