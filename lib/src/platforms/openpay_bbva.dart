@@ -44,6 +44,10 @@ class OpenpayBBVA extends OpenpayApi {
     }
   }
 
+  /// The [getCardToken] method uses the [merchantId] and
+  /// [publicApiKey] provided by Openpay to get the Card
+  /// Token and return it in the [cardToken] variable
+  /// as a String.
   Future<String> getCardToken(CardInformation card) async =>
       (await getToken(card)).id;
 

@@ -15,11 +15,15 @@ class TokenOpenpay {
   /// The [card] is the card information.
   final CardInformation card;
 
+  /// The TokenOpenpay.fromJson method is used to create a [TokenOpenpay]
+  /// object from a json.
   factory TokenOpenpay.fromJson(Map<String, dynamic> json) => TokenOpenpay(
         id: json["id"],
         card: CardInformation.fromJson(json["card"]),
       );
 
+  /// The [toJson] method is used to convert a [TokenOpenpay] object
+  /// to a json.
   Map<String, dynamic> get toJson => {
         "id": id,
         "card": card.toJson,
