@@ -1,5 +1,9 @@
 # Openpay BBVA
 
+## Languages
+
+[![Español](https://img.shields.io/badge/Language-Spanish-blueviolet?style=for-the-badge)](README_ES.md)
+
 ## Libraries integrates
 
 -[Openpay iOS](https://github.com/open-pay/openpay-swift-ios "Openpay iOS")
