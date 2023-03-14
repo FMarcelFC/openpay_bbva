@@ -14,7 +14,7 @@
 
 -[Anti-Fraud System](https://documents.openpay.mx/docs/fraud-tool.html "Sistema Antifraude")
 
-- [Card Token](https://documents.openpay.mx/docs/api/#crear-una-tarjeta-con-token "Card Token") para pagos con tarjeta a traves de la aplicación
+-[Card Token](https://documents.openpay.mx/docs/api/#crear-una-tarjeta-con-token "Card Token") para pagos con tarjeta a traves de la aplicación
 
 -[API.](https://documents.openpay.mx/docs/api/ "API.")
 
