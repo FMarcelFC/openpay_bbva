@@ -29,7 +29,7 @@ public class OpenpayBbvaPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
     Openpay openpay = new Openpay(call.argument("MERCHANT_ID"), call.argument("API_KEY"), call.argument("productionMode"));
     
-    OpenpayBBVA openpayBBVA = new OpenpayBBVA(openpay);
+    OpenpayBbva openpayBBVA = new OpenpayBbva(openpay);
     if (call.method.equals("getDeviceId")) {
        try {
             String deviceId = openpayBBVA.getDeviceId(this.activity);
