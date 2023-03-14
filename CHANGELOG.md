@@ -1,3 +1,5 @@
+# Changelog
+
 ## 1.0.0
 
 * First release supporting Android, iOS and Web platforms.
@@ -5,7 +7,6 @@
 ## 1.0.1
 
 * Changes in README.md file.
-
 
 ## 1.0.2
 
@@ -30,3 +31,13 @@
 ## 1.0.7
 
 * Fixed error in README, OpCountry now is only Country.
+
+## 1.0.8
+
+* Logic is separated into files
+* Improved documentation
+* Bugs are fixed
+* README is up to date
+* README is added in Spanish
+* Change Oiginal class name: OpenpayBBVA to DepOpenpayBBVA (Deprecated)
+* OpenpayBBVA is new class
