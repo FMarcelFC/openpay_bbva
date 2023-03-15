@@ -41,3 +41,9 @@
 * README is added in Spanish
 * Change Oiginal class name: OpenpayBBVA to DepOpenpayBBVA (Deprecated)
 * OpenpayBBVA is new class
+
+## 1.0.9
+
+* Update Swift & Java code
+* Change Type Data
+* Update README
