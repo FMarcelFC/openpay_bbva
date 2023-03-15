@@ -26,8 +26,11 @@ public class OpenpayBbvaPlugin implements FlutterPlugin, MethodCallHandler, Acti
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-
-    Openpay openpay = new Openpay(call.argument("MERCHANT_ID"), call.argument("API_KEY"), call.argument("productionMode"));
+    String country = call.argument("country");
+    
+    OpCountry opCountry = country.equals("MX") ? OpCountry.MX : country.equals("CO") ? OpCountry.COL : OpCountry.PE;
+   
+    Openpay openpay = new Openpay(call.argument("MERCHANT_ID"), call.argument("API_KEY"), call.argument("productionMode"), opCountry);
     
     OpenpayBbva openpayBBVA = new OpenpayBbva(openpay);
     if (call.method.equals("getDeviceId")) {
@@ -40,7 +43,6 @@ public class OpenpayBbvaPlugin implements FlutterPlugin, MethodCallHandler, Acti
     } else {
       result.notImplemented();
     }
-
   }
   @Override
   public void onAttachedToActivity(@NonNull ActivityPluginBinding binding){

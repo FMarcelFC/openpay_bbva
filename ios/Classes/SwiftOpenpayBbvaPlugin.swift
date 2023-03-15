@@ -14,15 +14,21 @@ public class SwiftOpenpayBbvaPlugin: NSObject, FlutterPlugin {
     guard let args = call.arguments else {
           return
       }
+    // Get argments from flutter 
     let myArgs = args as? [String: Any]
     let MERCHANT_ID = myArgs?["MERCHANT_ID"] as? String
     let API_KEY = myArgs?["PUBLIC_API_KEY"] as? String
     let productionMode = myArgs?["productionMode"] as? Bool
-      openpay = Openpay(withMerchantId: MERCHANT_ID ?? "", andApiKey: API_KEY ?? "", isProductionMode: productionMode ?? true, isDebug: !(productionMode ?? true))
+    let countryCode = myArgs?["country"] as? String
+    
+    openpay = Openpay(withMerchantId: MERCHANT_ID ?? "", andApiKey: API_KEY ?? "", isProductionMode: productionMode ?? true, isDebug: !(productionMode ?? true), countryCode: countryCode ?? "MX")
+    
     openpay.createDeviceSessionId { sessionId in
           result(sessionId)
       } failureFunction: { error in
           result(error.code)
       }
+      
+      
   }
 }
