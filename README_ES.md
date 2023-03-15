@@ -1,5 +1,16 @@
 # Openpay BBVA
 
+## Get Started
+
+### Android
+
+Agrega estos permisos a tu Android Manifest
+
+```xml
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+```
+
 ## Idiomas
 
 [![English](https://img.shields.io/badge/Language-English-blueviolet?style=for-the-badge)](README.md)
