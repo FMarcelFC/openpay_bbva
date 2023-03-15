@@ -2,7 +2,8 @@ import '../models/openpay_error.dart';
 
 export '../models/openpay_error.dart';
 
-///Openpay returns JSON objects in service responses, even in case of errors so when there is an error.
+/// Openpay returns JSON objects in service responses, even in case of
+/// errors so when there is an error.
 class OpenpayExceptionError implements Exception {
   /// The [error] is the [OpenpayError] object that contains the error information.
   final OpenpayError? error;
