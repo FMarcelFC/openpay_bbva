@@ -2,19 +2,22 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 
+import 'src/enums/country.dart';
+
 const Map<Country, String> _sandboxUrls = {
-  Country.Mexico: 'https://sandbox-api.openpay.mx',
-  Country.Colombia: 'https://sandbox-api.openpay.co',
-  Country.Peru: 'https://sandbox-api.openpay.pe'
+  Country.MX: 'https://sandbox-api.openpay.mx',
+  Country.CO: 'https://sandbox-api.openpay.co',
+  Country.PE: 'https://sandbox-api.openpay.pe'
 };
 
 const Map<Country, String> _productionUrls = {
-  Country.Mexico: 'https://api.openpay.mx',
-  Country.Colombia: 'https://api.openpay.co',
-  Country.Peru: 'https://api.openpay.pe',
+  Country.MX: 'https://api.openpay.mx',
+  Country.CO: 'https://api.openpay.co',
+  Country.PE: 'https://api.openpay.pe',
 };
 
 /// Openpay instance
+@Deprecated('Use OpenpayApi instead')
 class Openpay {
   /// enable sandox or production mode
   /// False by default
@@ -30,7 +33,7 @@ class Openpay {
   final Country country;
 
   Openpay(this.merchantId, this.apiKey,
-      {this.isSandboxMode = false, this.country = Country.Mexico});
+      {this.isSandboxMode = false, this.country = Country.MX});
 
   String get _merchantBaseUrl => '$baseUrl/v1/$merchantId';
 
@@ -62,9 +65,8 @@ class Openpay {
   }
 }
 
-enum Country { Mexico, Colombia, Peru }
-
 /// Card data representation class
+@Deprecated('Use CardInformation instead')
 class CardInfo {
   final String cardNumber;
   final String holderName;
@@ -74,9 +76,13 @@ class CardInfo {
   final String? brand;
   final String? creationDate;
 
-  CardInfo(this.cardNumber, this.holderName, this.expirationYear,
-      this.expirationMonth, String cvv2)
-      : brand = null,
+  CardInfo(
+    this.cardNumber,
+    this.holderName,
+    this.expirationYear,
+    this.expirationMonth,
+    String cvv2,
+  )   : brand = null,
         creationDate = null,
         this.cvv2 = cvv2;
 
@@ -104,10 +110,19 @@ class CardInfo {
 
   @override
   String toString() {
-    return 'CardInfo{cardNumber: ${cardNumber.contains('XX') ? cardNumber : 'hidden'}, holderName: $holderName, expirationYear: $expirationYear, expirationMonth: $expirationMonth, cvv2: ${cvv2 == null ? null : '***'}, brand: $brand, creationDate: $creationDate}';
+    return 'CardInfo{'
+        'cardNumber: ${cardNumber.contains('XX') ? cardNumber : 'hidden'}, '
+        'holderName: $holderName, '
+        'expirationYear: $expirationYear, '
+        'expirationMonth: $expirationMonth, '
+        'cvv2: ${cvv2 == null ? null : '***'}, '
+        'brand: $brand, '
+        'creationDate: $creationDate'
+        '}';
   }
 }
 
+@Deprecated('Use TokenOpenpay instead')
 class TokenInfo {
   final String id;
   final CardInfo card;

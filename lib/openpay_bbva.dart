@@ -2,8 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:openpay_bbva/openpay_api.dart';
 
+import 'src/enums/country.dart';
+
+export 'package:openpay_bbva/src/enums/country.dart';
+export 'package:openpay_bbva/src/http/openpay_api.dart';
+export 'package:openpay_bbva/src/models/card_information.dart';
+export 'package:openpay_bbva/src/platforms/openpay_bbva.dart';
+
 /// [OpenpayBBVA] is the class that allows you to get the device ID and card token from Openpay needed for your card payments.
-class OpenpayBBVA extends Openpay {
+@Deprecated('Use OpenpayBBVA instead')
+class DepOpenpayBBVA extends Openpay {
   @visibleForTesting
 
   /// Both [merchantId] as [publicApiKey], are obtained from the homepage of your account on the Openpay (http://www.openpay.mx/) site.
@@ -20,13 +28,13 @@ class OpenpayBBVA extends Openpay {
   static const _methodChannel = MethodChannel('openpay_bbva');
 
   /// [OpenpayBBVA] is the class that allows you to get the device ID and card token from Openpay needed for your card payments.
-  OpenpayBBVA(this.merchantId, this.publicApiKey,
-      {required this.productionMode, this.country = Country.Mexico})
-      : super(merchantId, publicApiKey,
+  DepOpenpayBBVA(
+    this.merchantId,
+    this.publicApiKey, {
+    required this.productionMode,
+    this.country = Country.MX,
+  }) : super(merchantId, publicApiKey,
             isSandboxMode: !productionMode, country: country);
-
-  /// Get the selected [opcountry].
-  String? get opcountry => _countries[this.country];
 
   /// The [getDeviceID] method uses the [merchantId] and [publicApiKey] provided by Openpay to get the Device Session ID and return it in the [deviceID] variable as a String.
   ///
@@ -38,7 +46,7 @@ class OpenpayBBVA extends Openpay {
         'MERCHANT_ID': merchantId,
         'API_KEY': publicApiKey,
         'productionMode': productionMode,
-        'country': this.opcountry
+        'country': country.name,
       });
       return deviceID; // Returns the Device Session ID.
     } on PlatformException catch (e) {
@@ -68,10 +76,3 @@ class OpenpayBBVA extends Openpay {
     }
   }
 }
-
-/// [Country] is the class used to select your country in the Openpay instance.
-const Map<Country, String> _countries = {
-  Country.Colombia: 'CO',
-  Country.Mexico: 'MX',
-  Country.Peru: 'PE'
-};

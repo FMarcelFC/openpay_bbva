@@ -4,49 +4,48 @@
 
 ### Android
 
-Add this permissions in your Android Manifest:
+Agrega estos permisos a tu Android Manifest
 
 ```xml
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
 
-## Languages
+## Idiomas
 
-[![Español](https://img.shields.io/badge/Language-Spanish-blueviolet?style=for-the-badge)](README_ES.md)
+[![English](https://img.shields.io/badge/Language-English-blueviolet?style=for-the-badge)](README.md)
 
-## Libraries integrates
+## Librerías Integradas
 
 -[Openpay iOS](https://github.com/open-pay/openpay-swift-ios "Openpay iOS")
 
 -[Openpay Android](https://github.com/open-pay/openpay-android "Openpay Android")
 
--[Openpay API](https://documents.openpay.mx/docs/api/#api-endpoints "Openpay API") to generate the Device Session ID used in the Openpay
+-[Openpay API](https://documents.openpay.mx/docs/api/#api-endpoints "Openpay API") para generar el ID de sesión del dispositivo utilizado en Openpay
 
--[Anti-Fraud System](https://documents.openpay.mx/docs/fraud-tool.html "Anti-Fraud System")
+-[Anti-Fraud System](https://documents.openpay.mx/docs/fraud-tool.html "Sistema Antifraude")
 
--[Card Token](https://documents.openpay.mx/docs/api/#crear-una-tarjeta-con-token "Card Token") for the card payments through their app
+-[Card Token](https://documents.openpay.mx/docs/api/#crear-una-tarjeta-con-token "Card Token") para pagos con tarjeta a traves de la aplicación
 
 -[API.](https://documents.openpay.mx/docs/api/ "API.")
 
-## Usage
+## Uso
 
-### Initialize OpenpayBBVA instance
+### Inicializar la Instancia OpenpayBBVA
 
 ```dart
-        // Example MERCHANT_ID and PUBLIC_API_KEY
+            // Example MERCHANT_ID and PUBLIC_API_KEY
             final openpay = OpenpayBBVA(
-           merchantId: "m2tmftuv5jao96rrezj2", // Replace this with your MERCHANT_ID
-           publicApiKey: "pk_d5e9bff37db4468da3f80148bb94f263", // Replace this with your PUBLIC_API_KEY
-            productionMode: false, // True if you want production mode on
-            Country: Country.MX); // Mexico by default, also Colombia & Peru supported
+           merchantId: "m2tmftuv5jao96rrezj2", // Reemplaza con tu MERCHANT_ID
+           publicApiKey: "pk_d5e9bff37db4468da3f80148bb94f263", // Reemplaza con tu PUBLIC_API_KEY
+            productionMode: false, // Si es verdadero, se usa el modo producción 
+            Country: Country.MX); // Por defecto se usa México, pero también Colombia & Peru son soportados
 
 ```
 
-### Get your Device Session ID *(iOS and Android only)*
+### Obten el ID de sesión de Dispositivo *(solo iOS y Android)*
 
 ```dart
-
         Future<void> initDeviceSession() async {
             String deviceID;
             try {
@@ -57,17 +56,15 @@ Add this permissions in your Android Manifest:
             }
 
             setState(() {
-            // THIS IS WHERE THE ID IS STORED
+            // Ejemplo de como guardar en memoria el dispositivo
             _deviceID = deviceID;
             });
         }
-
 ```
 
-### Get your Card Token
+### Consigue tu *Card Token*  
 
 ```dart
-
         Future<void> initCardToken() async {
             String token;
             try {
@@ -85,11 +82,10 @@ Add this permissions in your Android Manifest:
             }
 
             setState(() {
-            // THIS IS WHERE THE TOKEN IS STORED
+            // Ejemplo de como guardar en memoria el token
             _token = token;
             });
         }
-
 ```
 
-With this information, you can process card payments through Openpay.
+Con esta información, puede procesar pagos con tarjeta a través de Openpay.

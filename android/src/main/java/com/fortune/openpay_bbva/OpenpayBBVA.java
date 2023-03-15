@@ -10,9 +10,9 @@ import mx.openpay.android.exceptions.ServiceUnavailableException;
 import mx.openpay.android.model.Card;
 import mx.openpay.android.model.Token;
 
-public class OpenpayBBVA {
+public class OpenpayBbva {
     private final Openpay openpay;
-    public OpenpayBBVA(Openpay openpay){
+    public OpenpayBbva(Openpay openpay){
         this.openpay = openpay;
     }
 

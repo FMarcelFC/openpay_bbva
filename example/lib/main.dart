@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:openpay_bbva/openpay_api.dart';
 import 'dart:async';
 
 import 'package:openpay_bbva/openpay_bbva.dart';
@@ -18,12 +17,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _deviceID = '';
   String _token = '';
-  OpenpayBBVA openpay = OpenpayBBVA(
-      "m2tmftuv5jao96rrezj2", // Replace this with your MERCHANT_ID
-      "pk_d5e9bff37db4468da3f80148bb94f263", // Replace this with your PUBLIC_API_KEY
-      productionMode: false, // True if you want production mode on
-      country: Country
-          .Mexico); // Mexico by default, also Colombia and Peru supported
+  final openpay = OpenpayBBVA(
+    merchantId: "mliwbrm4orj40lhks7kv", // Replace this with your MERCHANT_ID
+    publicApiKey:
+        "pk_ae8ecf5728684d22b5975cb2a966fdfe", // Replace this with your PUBLIC_API_KEY
+    productionMode: false, // True if you want production mode on
+    country: Country.MX,
+  ); // Mexico by default, also Colombia and Peru supported
   @override
   void initState() {
     super.initState();
@@ -50,8 +50,14 @@ class _MyAppState extends State<MyApp> {
     String token;
     try {
       token = await openpay.getCardToken(
-              'Jose Perez Cruz', '411111111111111', '8', '23', '213') ??
-          'Error getting the card token';
+        CardInformation(
+          holderName: 'Jose Perez Cruz',
+          cardNumber: '5555555555554444',
+          expirationYear: 23,
+          expirationMonth: 8,
+          cvv2: '213',
+        ),
+      );
     } catch (e) {
       rethrow;
     }
@@ -74,6 +80,11 @@ class _MyAppState extends State<MyApp> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('Name : Jose Perez Cruz\n'),
+            Text('Card Number : 5555555555554444\n'),
+            Text('Expiration Year : 23\n'),
+            Text('Expiration Month : 8\n'),
+            Text('CVV2 : 213\n'),
             Text('Device ID : $_deviceID\n'), // THIS IS WHERE THE ID IS SHOWED
             Text(
                 'Card Token: $_token\n'), // THIS IS WHERE THE CARD TOKEN IS SHOWED
