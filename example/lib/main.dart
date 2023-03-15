@@ -18,12 +18,15 @@ class _MyAppState extends State<MyApp> {
   String _deviceID = '';
   String _token = '';
   final openpay = OpenpayBBVA(
-    merchantId: "mliwbrm4orj40lhks7kv", // Replace this with your MERCHANT_ID
-    publicApiKey:
-        "pk_ae8ecf5728684d22b5975cb2a966fdfe", // Replace this with your PUBLIC_API_KEY
-    productionMode: false, // True if you want production mode on
+    // Replace this with your MERCHANT_ID
+    merchantId: "mliwbrm4orj40lhks7kv",
+    // Replace this with your PUBLIC_API_KEY
+    publicApiKey: "pk_ae8ecf5728684d22b5975cb2a966fdfe",
+    // True if you want production mode on
+    productionMode: false,
+    // Mexico by default, also Colombia and Peru supported
     country: Country.MX,
-  ); // Mexico by default, also Colombia and Peru supported
+  );
   @override
   void initState() {
     super.initState();
@@ -53,8 +56,8 @@ class _MyAppState extends State<MyApp> {
         CardInformation(
           holderName: 'Jose Perez Cruz',
           cardNumber: '5555555555554444',
-          expirationYear: 23,
-          expirationMonth: 8,
+          expirationYear: '23',
+          expirationMonth: '8',
           cvv2: '213',
         ),
       );

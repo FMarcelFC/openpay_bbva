@@ -47,3 +47,12 @@
 * Update Swift & Java code
 * Change Type Data
 * Update README
+
+## 1.1.0
+
+* Add Address Model
+* Add Openpay Exceptions
+* Upgrade Card Information Model
+* Upgrade Token Openpay Model
+* Add Save Card Function
+* Delete old & deprecated files
