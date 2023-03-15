@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 import '../enums/country.dart';
+import '../error/openpay_exception.dart';
 import '../models/card_information.dart';
 import '../models/token_openpay.dart';
 
@@ -38,24 +39,82 @@ class OpenpayApi {
   /// The [_merchantBaseUrl] is the base url of the API with the merchant id.
   String get _merchantBaseUrl => '$baseUrl/v1/$merchantId';
 
-  /// The [getToken] method is used to get a token from a card.
-  /// It returns a [Future] of [TokenOpenpay].
+  /// To create a token in Openpay it is necessary to send the object with the
+  /// information to register. Once the token is saved, the number and security
+  /// code cannot be obtained since this information is encrypted.
   Future<TokenOpenpay> getToken(CardInformation card) async {
+    /// The basic auth is the public API key encoded in base64.
     final basicAuth = 'Basic ' + base64Encode(utf8.encode('$publicApiKey:'));
+
+    /// The [post] method is used to make a POST request to the API.
     final response = await post(
+      /// The [Uri.parse] method is used to parse the url.
       Uri.parse('$_merchantBaseUrl/tokens'),
+
+      /// The [headers] are the headers of the request.
       headers: {
         'Content-type': 'application/json',
         'Authorization': basicAuth,
         'Accept': 'application/json',
       },
+
+      /// The [jsonEncode] method is used to encode the card information
       body: jsonEncode(card.tokenNecesary),
     );
     if (response.statusCode == 201) {
-      return TokenOpenpay.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Error ${response.statusCode}, ${response.body}');
+      /// Returns a [TokenOpenpay] if the request was successful.
+      return tokenOpenpayFromJson(response.body);
+      //TokenOpenpay.fromJson(jsonDecode(response.body));
     }
+
+    /// Throws an [OpenpayExceptionError] if the request was not successful.
+    throw OpenpayExceptionError(error: openpayErrorFromJson(response.body));
+  }
+
+  /// The card is registered for the merchant's account. Once the card is
+  /// saved, the number and security code cannot be obtained.
+  ///
+  /// **Note:** All cards at the time of saving in Openpay are validated
+  /// by making an authorization for $10.00 MXN which are returned at the
+  /// time.
+  ///
+  /// When saving the card, an id will be generated that can be used to
+  /// charge the card, send a card or simply obtain non-sensitive card
+  /// information.
+  Future<CardInformation> saveCard({
+    required CardInformation card,
+    required String deviceSessionId,
+  }) async {
+    /// The basic auth is the public API key encoded in base64.
+    final basicAuth = 'Basic ' + base64Encode(utf8.encode('$publicApiKey:'));
+
+    /// The [post] method is used to make a POST request to the API.
+    final response = await post(
+      /// The [Uri.parse] method is used to parse the url.
+      Uri.parse('$_merchantBaseUrl/cards'),
+
+      /// The [headers] are the headers of the request.
+      headers: {
+        'Content-type': 'application/json',
+        'Authorization': basicAuth,
+        'Accept': 'application/json',
+      },
+
+      /// The [jsonEncode] method is used to encode the card information
+      body: jsonEncode({
+        ...card.saveCardNecesary,
+
+        /// The [deviceSessionId] is the id of the device.
+        'device_session_id': deviceSessionId,
+      }),
+    );
+    if (response.statusCode == 201) {
+      /// Returns a [CardInformation] if the request was successful.
+      return cardInformationFromJson(response.body);
+    }
+
+    /// Throws an [OpenpayExceptionError] if the request was not successful.
+    throw OpenpayExceptionError(error: openpayErrorFromJson(response.body));
   }
 
   /// The [_sandboxUrls] is a map that contains the sandbox urls
