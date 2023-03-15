@@ -1,4 +1,17 @@
+import 'dart:convert';
+
 import 'card_information.dart';
+
+/// Token Openpay from json
+///
+/// Returns a [TokenOpenpay] instance from a json string
+TokenOpenpay tokenOpenpayFromJson(String str) =>
+    TokenOpenpay.fromJson(json.decode(str));
+
+/// Token Openpay to json
+///
+/// Returns a string representation of a [TokenOpenpay] instance
+String tokenOpenpayToJson(TokenOpenpay data) => json.encode(data.toJson);
 
 /// [ToeknOpenpay] is the class that allows you to get the
 /// device ID and card token from Openpay needed for your
@@ -9,10 +22,11 @@ class TokenOpenpay {
     required this.card,
   });
 
-  /// The [id] is the token id.
+  /// [Token identifier]. This is the one you should use to
+  /// later make a charge.
   final String id;
 
-  /// The [card] is the card information.
+  /// Data of the [card] associated with the token.
   final CardInformation card;
 
   /// The TokenOpenpay.fromJson method is used to create a [TokenOpenpay]
@@ -26,7 +40,7 @@ class TokenOpenpay {
   /// to a json.
   Map<String, dynamic> get toJson => {
         "id": id,
-        "card": card.toJson,
+        "card": cardInformationToJson(card),
       };
 
   @override
