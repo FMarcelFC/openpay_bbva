@@ -39,7 +39,7 @@
 * Bugs are fixed
 * README is up to date
 * README is added in Spanish
-* Change Oiginal class name: OpenpayBBVA to DepOpenpayBBVA (Deprecated)
+* Change Original class name: OpenpayBBVA to DepOpenpayBBVA (Deprecated)
 * OpenpayBBVA is new class
 
 ## 1.0.9
