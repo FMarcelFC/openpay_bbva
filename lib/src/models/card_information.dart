@@ -17,10 +17,10 @@ class CardInformation {
   final String cardNumber;
 
   /// Card expiration year
-  final String expirationYear;
+  final int expirationYear;
 
   /// Card expiration month
-  final String expirationMonth;
+  final int expirationMonth;
 
   /// Card cvv2
   final String? cvv2;
@@ -36,8 +36,8 @@ class CardInformation {
       CardInformation(
         cardNumber: json["card_number"],
         holderName: json["holder_name"],
-        expirationYear: json["expiration_year"],
-        expirationMonth: json["expiration_month"],
+        expirationYear: int.parse(json["expiration_year"]),
+        expirationMonth: int.parse(json["expiration_month"]),
         cvv2: json["cvv2"],
         brand: json["brand"],
         creationDate: json["creation_date"],

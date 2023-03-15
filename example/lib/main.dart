@@ -53,8 +53,8 @@ class _MyAppState extends State<MyApp> {
         CardInformation(
           holderName: 'Jose Perez Cruz',
           cardNumber: '5555555555554444',
-          expirationYear: '23',
-          expirationMonth: '8',
+          expirationYear: 23,
+          expirationMonth: 8,
           cvv2: '213',
         ),
       );
@@ -80,6 +80,11 @@ class _MyAppState extends State<MyApp> {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('Name : Jose Perez Cruz\n'),
+            Text('Card Number : 5555555555554444\n'),
+            Text('Expiration Year : 23\n'),
+            Text('Expiration Month : 8\n'),
+            Text('CVV2 : 213\n'),
             Text('Device ID : $_deviceID\n'), // THIS IS WHERE THE ID IS SHOWED
             Text(
                 'Card Token: $_token\n'), // THIS IS WHERE THE CARD TOKEN IS SHOWED
