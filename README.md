@@ -36,8 +36,8 @@ Add this permissions in your Android Manifest:
 ```dart
         // Example MERCHANT_ID and PUBLIC_API_KEY
             final openpay = OpenpayBBVA(
-            "m2tmftuv5jao96rrezj2", // Replace this with your MERCHANT_ID
-            "pk_d5e9bff37db4468da3f80148bb94f263", // Replace this with your PUBLIC_API_KEY
+           merchantId: "m2tmftuv5jao96rrezj2", // Replace this with your MERCHANT_ID
+           publicApiKey: "pk_d5e9bff37db4468da3f80148bb94f263", // Replace this with your PUBLIC_API_KEY
             productionMode: false, // True if you want production mode on
             Country: Country.MX); // Mexico by default, also Colombia & Peru supported
 
