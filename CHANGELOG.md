@@ -39,7 +39,7 @@
 * Bugs are fixed
 * README is up to date
 * README is added in Spanish
-* Change Oiginal class name: OpenpayBBVA to DepOpenpayBBVA (Deprecated)
+* Change Original class name: OpenpayBBVA to DepOpenpayBBVA (Deprecated)
 * OpenpayBBVA is new class
 
 ## 1.0.9
@@ -47,3 +47,12 @@
 * Update Swift & Java code
 * Change Type Data
 * Update README
+
+## 1.1.0
+
+* Add Address Model
+* Add Openpay Exceptions
+* Upgrade Card Information Model
+* Upgrade Token Openpay Model
+* Add Save Card Function
+* Delete old & deprecated files

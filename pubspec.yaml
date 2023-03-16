@@ -1,6 +1,6 @@
 name: openpay_bbva
 description: This is a package that uses the Openpay iOS and Openpay Android libraries to tokenize payments through the BBVA Openpay Platform.
-version: 1.0.8
+version: 1.1.0
 homepage: https://github.com/FMarcelFC/openpay_bbva
 
 environment:
