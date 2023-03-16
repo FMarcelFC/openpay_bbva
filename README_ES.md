@@ -21,7 +21,7 @@ Agrega estos permisos a tu Android Manifest
 
 -[Openpay Android](https://github.com/open-pay/openpay-android "Openpay Android")
 
--[Openpay API](https://documents.openpay.mx/docs/api/#api-endpoints "Openpay API") para generar el ID de sesión del dispositivo utilizado en Openpay
+-[Openpay API](https://documents.openpay.mx/docs/api/#api-endpoints "Openpay API") para generar el token de tarjeta utilizado en los pagos de Openpay
 
 -[Anti-Fraud System](https://documents.openpay.mx/docs/fraud-tool.html "Sistema Antifraude")
 
