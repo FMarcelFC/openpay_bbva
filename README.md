@@ -21,7 +21,7 @@ Add this permissions in your Android Manifest:
 
 -[Openpay Android](https://github.com/open-pay/openpay-android "Openpay Android")
 
--[Openpay API](https://documents.openpay.mx/docs/api/#api-endpoints "Openpay API") to generate the Device Session ID used in the Openpay
+-[Openpay API](https://documents.openpay.mx/docs/api/#api-endpoints "Openpay API") to generate the card token used in Openpay payments
 
 -[Anti-Fraud System](https://documents.openpay.mx/docs/fraud-tool.html "Anti-Fraud System")
 
