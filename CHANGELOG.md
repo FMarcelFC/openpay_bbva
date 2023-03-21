@@ -56,3 +56,7 @@
 * Upgrade Token Openpay Model
 * Add Save Card Function
 * Delete old & deprecated files
+
+## 1.1.1
+
+* Rename files
