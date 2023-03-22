@@ -60,3 +60,4 @@
 ## 1.1.1
 
 * Rename files
+* Changed README_ES.md

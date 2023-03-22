@@ -39,7 +39,7 @@ Agrega estos permisos a tu Android Manifest
            merchantId: "m2tmftuv5jao96rrezj2", // Reemplaza con tu MERCHANT_ID
            publicApiKey: "pk_d5e9bff37db4468da3f80148bb94f263", // Reemplaza con tu PUBLIC_API_KEY
             productionMode: false, // Si es verdadero, se usa el modo producción 
-            Country: Country.MX); // Por defecto se usa México, pero también Colombia & Peru son soportados
+            Country: Country.MX); // Por defecto se usa México, pero también Colombia & Peru están disponibles
 
 ```
 
