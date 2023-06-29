@@ -15,7 +15,7 @@ Add this permissions in your Android Manifest:
 
 [![Español](https://img.shields.io/badge/Language-Spanish-blueviolet?style=for-the-badge)](README_ES.md)
 
-## Libraries integrates
+## Libraries
 
 -[Openpay iOS](https://github.com/open-pay/openpay-swift-ios "Openpay iOS")
 

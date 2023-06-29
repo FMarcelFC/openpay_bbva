@@ -61,3 +61,9 @@
 
 * Rename files
 * Changed README_ES.md
+
+## 1.1.2
+
+* Update libraries and packages
+* Updated README.md
+* Changed SDK constraint
