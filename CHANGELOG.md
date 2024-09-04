@@ -67,3 +67,9 @@
 * Update libraries and packages
 * Updated README.md
 * Changed SDK constraint
+
+## 1.1.3
+
+* Update libraries and packages
+* Updated README.md
+* Changed SDK constraint
