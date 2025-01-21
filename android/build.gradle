@@ -26,6 +26,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
+    namespace 'com.fortune.openpay_bbva'
     compileSdkVersion 31
 
     compileOptions {
