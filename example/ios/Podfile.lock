@@ -3,7 +3,7 @@ PODS:
   - openpay_bbva (1.0.0):
     - Flutter
     - Openpaykit
-  - Openpaykit (0.0.1)
+  - Openpaykit (0.0.2)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -20,10 +20,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/openpay_bbva/ios"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  openpay_bbva: 8b2bd9ae997915ade25e518e23323cd67ea6ef59
-  Openpaykit: 10bed6d67b2b8f204dfff94a7e50d9b2d7076d86
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  openpay_bbva: c4933458a8547ce157e6fca71d14bc57ff76a01a
+  Openpaykit: b89397cea8548679c23a80e6bf4cfddbd78ee8fe
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.15.2
