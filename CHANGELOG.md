@@ -73,3 +73,8 @@
 * Update libraries and packages
 * Updated README.md
 * Changed SDK constraint
+
+## 1.1.4
+
+* Added a namespace to the android manifest file for new graddle version
+* Removed bit code from Openpay iOS XCFramework
