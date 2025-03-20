@@ -3,7 +3,7 @@ PODS:
   - openpay_bbva (1.0.0):
     - Flutter
     - Openpaykit
-  - Openpaykit (0.0.2)
+  - Openpaykit (0.0.5)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -22,7 +22,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   openpay_bbva: c4933458a8547ce157e6fca71d14bc57ff76a01a
-  Openpaykit: b89397cea8548679c23a80e6bf4cfddbd78ee8fe
+  Openpaykit: bb26f158e75c6a45309887e9b8707b0e659996ed
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
