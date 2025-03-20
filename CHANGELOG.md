@@ -78,3 +78,7 @@
 
 * Added a namespace to the android manifest file for new graddle version
 * Removed bit code from Openpay iOS XCFramework
+
+## 1.1.5
+
+* Added new official compiled OpenpayKit version to the package
