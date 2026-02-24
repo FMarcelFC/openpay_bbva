@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0
+
+* Added platform support for Web, Windows, macOS, and Linux via `pluginClass: none`
+* `getDeviceID()` now returns `null` on non-mobile platforms instead of throwing MissingPluginException
+* `getCardToken()` and `saveCard()` work on all platforms via HTTP
+* Updated dependencies: http ^1.6.0, flutter_lints ^6.0.0
+* Updated minimum SDK constraints: Dart >=3.4.0, Flutter >=3.19.0
+
 ## 1.0.0
 
 * First release supporting Android, iOS and Web platforms.

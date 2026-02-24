@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
+import 'dart:io' show Platform;
 
 import '../enums/country.dart';
 import '../http/openpay_api.dart';
@@ -28,14 +30,19 @@ class OpenpayBBVA extends OpenpayApi {
   ///
   /// This is only implemented for iOS and Android.
   Future<String?> getDeviceID() async {
+    // kIsWeb debe verificarse antes de acceder a dart:io Platform
+    // porque dart:io no está disponible en Web.
+    if (kIsWeb || (!Platform.isIOS && !Platform.isAndroid)) {
+      return null;
+    }
     try {
       final deviceID = await _methodChannel.invokeMethod<String>(
         'getDeviceId',
         {
           'MERCHANT_ID': merchantId,
           'API_KEY': publicApiKey,
-          'productionMode': !this.isSandboxMode,
-          'country': this.country.name,
+          'productionMode': !isSandboxMode,
+          'country': country.name,
         },
       );
       return deviceID;
