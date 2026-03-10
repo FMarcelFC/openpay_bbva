@@ -1,24 +1,65 @@
-// To parse this JSON data, do
+// To parse a JSON string into a CardInformation instance:
 //
-//     final cardInformation = cardInformationFromJson(jsonString);
+//     final card = cardInformationFromJson(jsonString);
 
 import 'dart:convert';
 
 import 'address.dart';
 
-/// Card Information from json
-///
-/// Returns a [CardInformation] instance from a json string
+/// Parses a [CardInformation] instance from a raw JSON string.
 CardInformation cardInformationFromJson(String str) =>
     CardInformation.fromJson(json.decode(str));
 
-/// Card Information to json
-///
-/// Returns a string representation of a [CardInformation] instance
+/// Serializes a [CardInformation] instance to a JSON string.
 String cardInformationToJson(CardInformation data) => json.encode(data.toJson);
 
-/// Card Information representation class
+/// Represents the full set of card data used for tokenization and storage
+/// within the Openpay BBVA platform.
+///
+/// Required fields for tokenization are [holderName], [cardNumber],
+/// [expirationMonth], [expirationYear], and [cvv2]. All other fields
+/// are populated by Openpay in API responses.
+///
+/// ## Example — creating a card for tokenization
+///
+/// ```dart
+/// final card = CardInformation(
+///   holderName: 'John Doe',
+///   cardNumber: '4111111111111111',
+///   expirationMonth: '12',
+///   expirationYear: '25',
+///   cvv2: '123',
+/// );
+///
+/// final token = await openpay.getCardToken(card);
+/// ```
+///
+/// ## Example — creating a card with a billing address
+///
+/// ```dart
+/// final card = CardInformation(
+///   holderName: 'John Doe',
+///   cardNumber: '4111111111111111',
+///   expirationMonth: '12',
+///   expirationYear: '25',
+///   cvv2: '123',
+///   address: Address(
+///     line1: '123 Main St',
+///     line2: 'Apt 4B',
+///     line3: 'Centro',
+///     city: 'Mexico City',
+///     state: 'CDMX',
+///     postalCode: '06600',
+///     countryCode: 'MX',
+///   ),
+/// );
+/// ```
 class CardInformation {
+  /// Creates a [CardInformation] instance.
+  ///
+  /// [holderName], [cardNumber], [expirationMonth], [expirationYear], and
+  /// [cvv2] are required for tokenization. All other parameters are optional
+  /// and are typically populated from API responses.
   CardInformation({
     this.id = '',
     this.creationDate,
@@ -38,64 +79,73 @@ class CardInformation {
     this.pointsCard = false,
   });
 
-  /// Unique card identifier.
+  /// Unique card identifier assigned by Openpay after the card is saved.
+  ///
+  /// Empty when constructing a card locally for tokenization.
   final String id;
 
-  ///Date and time the card was created in ISO 8601 format
+  /// Date and time the card was created, in ISO 8601 format.
+  ///
+  /// `null` when constructing a card locally.
   final DateTime? creationDate;
 
-  /// Name of the cardholder.
+  /// Full name of the cardholder, as it appears on the card.
   final String holderName;
 
-  /// Card number, can be 16 or 19 digits.
+  /// Card number. Can be 16 or 19 digits.
+  ///
+  /// In API responses, only the last 4 digits are returned.
   final String cardNumber;
 
-  /// Security code as it appears on the back of the card.
-  /// Usually 3 digits.
+  /// Card Verification Value (CVV2 / CVC), as printed on the back of the card.
+  ///
+  /// Typically 3 digits; 4 digits for American Express.
+  /// In API responses, this field is masked as `'XXX'`.
   final String cvv2;
 
-  /// Expiration month as it appears on the card.
+  /// Two-digit expiration month as it appears on the card (e.g., `'01'`–`'12'`).
   final String expirationMonth;
 
-  /// Expiration year as it appears on the card.
+  /// Two-digit expiration year as it appears on the card (e.g., `'25'` for 2025).
   final String expirationYear;
 
-  /// Billing address of the cardholder.
+  /// Optional billing address associated with the cardholder.
   final Address? address;
 
-  /// Lets you know if charges can be made to the card.
+  /// Whether this card can be used to create charges.
+  ///
+  /// `null` when the card has not yet been saved through Openpay.
   final bool? allowsCharges;
 
-  /// Lets you know if you can send payments to the card.
+  /// Whether this card can receive payouts.
+  ///
+  /// `null` when the card has not yet been saved through Openpay.
   final bool? allowsPayouts;
 
-  /// Card brand: [visa], [mastercard], [carnet] or
-  /// [american express].
+  /// Card network brand. Possible values: `visa`, `mastercard`, `carnet`,
+  /// `american express`.
   final String brand;
 
-  /// Card type: debit, credit, cash, etc.
+  /// Card funding type. Possible values: `debit`, `credit`, `cash`, etc.
   final String type;
 
-  /// Name of the issuing bank.
+  /// Name of the bank that issued the card.
   final String bankName;
 
-  /// Code of the issuing bank.
+  /// Code of the bank that issued the card.
   final String bankCode;
 
-  /// Identifier of the customer to which the card belongs.
-  /// If the card is at the merchant level, this value will
-  /// be null.
+  /// Identifier of the customer this card belongs to.
+  ///
+  /// `null` when the card is stored at the merchant level.
   final String? customerId;
 
-  /// Indicates if the card supports payment with points.
+  /// Whether this card supports payment with loyalty points.
   final bool pointsCard;
 
-  /// Returns a copy of this [CardInformation] instance
-  /// with the given fields replaced with the new values.
-  /// If a field is null, the current value will be used.
-  /// If a field is not null, the current value will be replaced.
-  /// If a field is not null and the current value is null,
-  /// the current value will be replaced.
+  /// Returns a copy of this [CardInformation] with the given fields replaced.
+  ///
+  /// Fields that are not provided retain their current values.
   CardInformation copyWith({
     String? id,
     DateTime? creationDate,
@@ -133,7 +183,7 @@ class CardInformation {
         pointsCard: pointsCard ?? this.pointsCard,
       );
 
-  /// Return a [CardInformation] instance from a json map
+  /// Creates a [CardInformation] from a JSON map returned by the Openpay API.
   factory CardInformation.fromJson(Map<String, dynamic> json) =>
       CardInformation(
         id: json["id"] ?? '',
@@ -157,8 +207,10 @@ class CardInformation {
         pointsCard: json["points_card"] ?? false,
       );
 
-  /// Returns a json map representation of a [CardInformation] instance
-  /// with the given fields replaced with the new values.
+  /// Serializes this [CardInformation] to a JSON-serializable map.
+  ///
+  /// Includes all fields. Use [tokenNecessary] or [saveCardNecessary] for
+  /// request-specific payloads.
   Map<String, dynamic> get toJson => {
         "id": id,
         "type": type,
@@ -178,8 +230,11 @@ class CardInformation {
         "address": address == null ? null : addressToJson(address!),
       };
 
-  /// Returns a json map from a [CardInformation] instance
-  Map<String, dynamic> get tokenNecesary => {
+  /// Minimal JSON payload required by the Openpay **token** endpoint.
+  ///
+  /// Includes [cardNumber], [holderName], [expirationYear], [expirationMonth],
+  /// [cvv2], and optionally [address].
+  Map<String, dynamic> get tokenNecessary => {
         "card_number": cardNumber,
         "holder_name": holderName,
         "expiration_year": expirationYear,
@@ -188,8 +243,11 @@ class CardInformation {
         "address": address == null ? null : addressToJson(address!),
       };
 
-  /// Returns a json map from a [CardInformation] instance
-  Map<String, dynamic> get saveCardNecesary => {
+  /// Minimal JSON payload required by the Openpay **save card** endpoint.
+  ///
+  /// Includes [cardNumber], [holderName], [expirationYear], [expirationMonth],
+  /// and [cvv2]. The `device_session_id` is added separately by [OpenpayApi.saveCard].
+  Map<String, dynamic> get saveCardNecessary => {
         "card_number": cardNumber,
         "holder_name": holderName,
         "expiration_year": expirationYear,
@@ -197,7 +255,6 @@ class CardInformation {
         "cvv2": cvv2,
       };
 
-  /// Returns a string representation of a [CardInformation] instance
   @override
   String toString() => toJson.toString();
 }

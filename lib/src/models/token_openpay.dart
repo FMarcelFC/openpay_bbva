@@ -2,42 +2,55 @@ import 'dart:convert';
 
 import 'card_information.dart';
 
-/// Token Openpay from json
-///
-/// Returns a [TokenOpenpay] instance from a json string
+/// Parses a [TokenOpenpay] instance from a raw JSON string.
 TokenOpenpay tokenOpenpayFromJson(String str) =>
     TokenOpenpay.fromJson(json.decode(str));
 
-/// Token Openpay to json
-///
-/// Returns a string representation of a [TokenOpenpay] instance
+/// Serializes a [TokenOpenpay] instance to a JSON string.
 String tokenOpenpayToJson(TokenOpenpay data) => json.encode(data.toJson);
 
-/// [ToeknOpenpay] is the class that allows you to get the
-/// device ID and card token from Openpay needed for your
-/// card payments.
+/// Represents the token response returned by the Openpay API after a
+/// successful card tokenization request.
+///
+/// A [TokenOpenpay] contains the [id] you must supply when creating a charge,
+/// along with partial (non-sensitive) [card] information to confirm which card
+/// was tokenized.
+///
+/// ## Example
+///
+/// ```dart
+/// final token = await openpay.getCardToken(card);
+/// print(token); // The token ID string
+/// ```
+///
+/// See also:
+/// - [OpenpayBBVA.getCardToken] — convenience method that returns only the [id].
+/// - [OpenpayApi.getToken] — returns the full [TokenOpenpay] object.
 class TokenOpenpay {
+  /// Creates a [TokenOpenpay] instance.
   TokenOpenpay({
     required this.id,
     required this.card,
   });
 
-  /// [Token identifier]. This is the one you should use to
-  /// later make a charge.
+  /// The unique token identifier returned by Openpay.
+  ///
+  /// Use this value when creating a charge via the Openpay API.
   final String id;
 
-  /// Data of the [card] associated with the token.
+  /// Partial, non-sensitive data of the card associated with this token.
+  ///
+  /// The card number and CVV are masked; only metadata such as [CardInformation.brand],
+  /// [CardInformation.bankName], and [CardInformation.holderName] are included.
   final CardInformation card;
 
-  /// The TokenOpenpay.fromJson method is used to create a [TokenOpenpay]
-  /// object from a json.
+  /// Creates a [TokenOpenpay] from a JSON map returned by the Openpay API.
   factory TokenOpenpay.fromJson(Map<String, dynamic> json) => TokenOpenpay(
         id: json["id"],
         card: CardInformation.fromJson(json["card"]),
       );
 
-  /// The [toJson] method is used to convert a [TokenOpenpay] object
-  /// to a json.
+  /// Converts this [TokenOpenpay] instance to a JSON-serializable map.
   Map<String, dynamic> get toJson => {
         "id": id,
         "card": cardInformationToJson(card),

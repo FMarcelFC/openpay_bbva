@@ -7,8 +7,39 @@ import '../error/openpay_exception.dart';
 import '../models/card_information.dart';
 import '../models/token_openpay.dart';
 
-/// OpenpayApi is a class that contains the API urls
+/// Low-level HTTP client for the Openpay REST API.
+///
+/// Handles authentication, URL resolution (sandbox vs. production, by country),
+/// and request/response serialization. This class is extended by [OpenpayBBVA],
+/// which adds native platform support.
+///
+/// You can use [OpenpayApi] directly if you only need HTTP-based card
+/// operations (all platforms), or use [OpenpayBBVA] for the full feature set
+/// including the Device Session ID on mobile.
+///
+/// ## Supported endpoints
+///
+/// | Method       | Endpoint          | Description                          |
+/// |:-------------|:------------------|:-------------------------------------|
+/// | [getToken]   | `POST /tokens`    | Tokenize a card                      |
+/// | [saveCard]   | `POST /cards`     | Save a card to the merchant account  |
+///
+/// ## Base URLs by country and environment
+///
+/// | Country | Sandbox                           | Production               |
+/// |:--------|:----------------------------------|:-------------------------|
+/// | MX      | `sandbox-api.openpay.mx`          | `api.openpay.mx`         |
+/// | CO      | `sandbox-api.openpay.co`          | `api.openpay.co`         |
+/// | PE      | `sandbox-api.openpay.pe`          | `api.openpay.pe`         |
 class OpenpayApi {
+  /// Creates an [OpenpayApi] instance.
+  ///
+  /// - [merchantId]: Your Openpay merchant identifier.
+  /// - [publicApiKey]: Your public API key. **Never use your private key here.**
+  /// - [isSandboxMode]: When `true`, requests target the sandbox environment.
+  ///   Defaults to `false`.
+  /// - [country]: The country associated with your Openpay account.
+  ///   Defaults to [Country.MX].
   OpenpayApi({
     required this.merchantId,
     required this.publicApiKey,
@@ -16,117 +47,128 @@ class OpenpayApi {
     this.country = Country.MX,
   });
 
-  /// The [isSandboxMode] is a boolean that indicates if the API
-  /// will use the sandbox or production mode.
-  /// False by default
+  /// Whether the sandbox (test) environment is active.
+  ///
+  /// When `true`, no real transactions are processed.
   final bool isSandboxMode;
 
-  /// The [merchantId] is the merchant id.
+  /// Your Openpay merchant identifier.
   final String merchantId;
 
-  /// The [publicApiKey] is the public API Key.
+  /// Your Openpay public API key.
+  ///
+  /// This key is safe to include in client-side code. Never use your private
+  /// key in Flutter applications.
   final String publicApiKey;
 
-  /// The [country] is the country where the merchant is located.
-  /// By default is [Country.MX].
+  /// The country whose Openpay endpoints will be used.
   final Country country;
 
-  /// The [baseUrl] is the base url of the API.
+  /// The base URL for the current environment and country.
+  ///
+  /// Resolves to the sandbox or production URL depending on [isSandboxMode].
   String get baseUrl => isSandboxMode
-      ? _sandboxUrls[this.country]!
-      : _productionUrls[this.country]!;
+      ? _sandboxUrls[country]!
+      : _productionUrls[country]!;
 
-  /// The [_merchantBaseUrl] is the base url of the API with the merchant id.
+  /// The merchant-scoped base URL (`{baseUrl}/v1/{merchantId}`).
   String get _merchantBaseUrl => '$baseUrl/v1/$merchantId';
 
-  /// To create a token in Openpay it is necessary to send the object with the
-  /// information to register. Once the token is saved, the number and security
-  /// code cannot be obtained since this information is encrypted.
+  /// Tokenizes a card and returns a [TokenOpenpay] containing the token ID
+  /// and partial card metadata.
+  ///
+  /// Sends the minimum required card fields ([CardInformation.tokenNecessary])
+  /// to the `POST /tokens` endpoint. The token ID can then be used to create
+  /// a charge via the Openpay server-side API.
+  ///
+  /// > **Note:** Once tokenized, the raw card number and CVV cannot be
+  /// > retrieved — Openpay encrypts and stores them securely.
+  ///
+  /// Throws an [OpenpayExceptionError] if the API returns a non-201 response.
+  ///
+  /// ```dart
+  /// final token = await openpayApi.getToken(card);
+  /// print(token.id); // Use this ID to create a charge
+  /// ```
   Future<TokenOpenpay> getToken(CardInformation card) async {
-    /// The basic auth is the public API key encoded in base64.
-    final basicAuth = 'Basic ' + base64Encode(utf8.encode('$publicApiKey:'));
+    final basicAuth = 'Basic ${base64Encode(utf8.encode('$publicApiKey:'))}';
 
-    /// The [post] method is used to make a POST request to the API.
     final response = await post(
-      /// The [Uri.parse] method is used to parse the url.
       Uri.parse('$_merchantBaseUrl/tokens'),
-
-      /// The [headers] are the headers of the request.
       headers: {
-        'Content-type': 'application/json',
+        'Content-Type': 'application/json',
         'Authorization': basicAuth,
         'Accept': 'application/json',
       },
-
-      /// The [jsonEncode] method is used to encode the card information
-      body: jsonEncode(card.tokenNecesary),
+      body: jsonEncode(card.tokenNecessary),
     );
+
     if (response.statusCode == 201) {
-      /// Returns a [TokenOpenpay] if the request was successful.
       return tokenOpenpayFromJson(response.body);
-      //TokenOpenpay.fromJson(jsonDecode(response.body));
     }
 
-    /// Throws an [OpenpayExceptionError] if the request was not successful.
     throw OpenpayExceptionError(error: openpayErrorFromJson(response.body));
   }
 
-  /// The card is registered for the merchant's account. Once the card is
-  /// saved, the number and security code cannot be obtained.
+  /// Saves a card to your Openpay merchant account and returns the stored
+  /// [CardInformation] with its assigned [CardInformation.id].
   ///
-  /// **Note:** All cards at the time of saving in Openpay are validated
-  /// by making an authorization for $10.00 MXN which are returned at the
-  /// time.
+  /// The saved card can later be used to create charges or payouts using its
+  /// [CardInformation.id], without requiring the raw card data again.
   ///
-  /// When saving the card, an id will be generated that can be used to
-  /// charge the card, send a card or simply obtain non-sensitive card
-  /// information.
+  /// > **Note:** All cards are validated at save time via a $10.00 MXN
+  /// > authorization that is immediately reversed.
+  ///
+  /// > **Note:** Once saved, the card number and CVV cannot be retrieved.
+  ///
+  /// - [card]: The card to save. Only [CardInformation.saveCardNecessary]
+  ///   fields are sent.
+  /// - [deviceSessionId]: The Device Session ID obtained via
+  ///   [OpenpayBBVA.getDeviceID]. Required for anti-fraud validation.
+  ///
+  /// Throws an [OpenpayExceptionError] if the API returns a non-201 response.
+  ///
+  /// ```dart
+  /// final saved = await openpayApi.saveCard(
+  ///   card: card,
+  ///   deviceSessionId: deviceId,
+  /// );
+  /// print(saved.id); // Store this ID for future charges
+  /// ```
   Future<CardInformation> saveCard({
     required CardInformation card,
     required String deviceSessionId,
   }) async {
-    /// The basic auth is the public API key encoded in base64.
-    final basicAuth = 'Basic ' + base64Encode(utf8.encode('$publicApiKey:'));
+    final basicAuth = 'Basic ${base64Encode(utf8.encode('$publicApiKey:'))}';
 
-    /// The [post] method is used to make a POST request to the API.
     final response = await post(
-      /// The [Uri.parse] method is used to parse the url.
       Uri.parse('$_merchantBaseUrl/cards'),
-
-      /// The [headers] are the headers of the request.
       headers: {
-        'Content-type': 'application/json',
+        'Content-Type': 'application/json',
         'Authorization': basicAuth,
         'Accept': 'application/json',
       },
-
-      /// The [jsonEncode] method is used to encode the card information
       body: jsonEncode({
-        ...card.saveCardNecesary,
-
-        /// The [deviceSessionId] is the id of the device.
+        ...card.saveCardNecessary,
         'device_session_id': deviceSessionId,
       }),
     );
+
     if (response.statusCode == 201) {
-      /// Returns a [CardInformation] if the request was successful.
       return cardInformationFromJson(response.body);
     }
 
-    /// Throws an [OpenpayExceptionError] if the request was not successful.
     throw OpenpayExceptionError(error: openpayErrorFromJson(response.body));
   }
 
-  /// The [_sandboxUrls] is a map that contains the sandbox urls
-  /// for each country.
+  /// Sandbox API base URLs indexed by [Country].
   static const Map<Country, String> _sandboxUrls = {
     Country.MX: 'https://sandbox-api.openpay.mx',
     Country.CO: 'https://sandbox-api.openpay.co',
-    Country.PE: 'https://sandbox-api.openpay.pe'
+    Country.PE: 'https://sandbox-api.openpay.pe',
   };
 
-  /// The [_productionUrls] is a map that contains the production urls
-  /// for each country.
+  /// Production API base URLs indexed by [Country].
   static const Map<Country, String> _productionUrls = {
     Country.MX: 'https://api.openpay.mx',
     Country.CO: 'https://api.openpay.co',
