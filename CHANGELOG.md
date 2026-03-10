@@ -1,36 +1,56 @@
 # Changelog
 
-## 1.0.0
+## 1.2.0
 
-* First release supporting Android, iOS and Web platforms.
+* Added platform support for Web, Windows, macOS, and Linux via `pluginClass: none`
+* `getDeviceID()` now returns `null` on non-mobile platforms instead of throwing MissingPluginException
+* `getCardToken()` and `saveCard()` work on all platforms via HTTP
+* Updated dependencies: http ^1.6.0, flutter_lints ^6.0.0
+* Updated minimum SDK constraints: Dart >=3.4.0, Flutter >=3.19.0
+* Added Swift Package Manager (SPM) support for iOS
+* Updated iOS minimum deployment target to 14.3
+* Updated Openpaykit dependency to 0.0.6
 
-## 1.0.1
+## 1.1.5
 
-* Changes in README.md file.
+* Added new official compiled OpenpayKit version to the package
 
-## 1.0.2
+## 1.1.4
 
-* Compilation errors fixed in iOS.
+* Added a namespace to the android manifest file for new graddle version
+* Removed bit code from Openpay iOS XCFramework
 
-## 1.0.3
+## 1.1.3
 
-* Cammel case fixed.
+* Update libraries and packages
+* Updated README.md
+* Changed SDK constraint
 
-## 1.0.4
+## 1.1.2
 
-* Fixed Java plugin error.
+* Update libraries and packages
+* Updated README.md
+* Changed SDK constraint
 
-## 1.0.5
+## 1.1.1
 
-* Fixed error in pubspec.yaml and added support to Peru.
+* Rename files
+* Changed README_ES.md
 
-## 1.0.6
+## 1.1.0
 
-* Fixed error in example, OpCountry now is only Country.
+* Add Address Model
+* Add Openpay Exceptions
+* Upgrade Card Information Model
+* Upgrade Token Openpay Model
+* Add Save Card Function
+* Delete old & deprecated files
 
-## 1.0.7
+## 1.0.9
 
-* Fixed error in README, OpCountry now is only Country.
+* Update Swift & Java code
+* Change Type Data
+* Update README
 
 ## 1.0.8
 
@@ -42,43 +62,34 @@
 * Change Original class name: OpenpayBBVA to DepOpenpayBBVA (Deprecated)
 * OpenpayBBVA is new class
 
-## 1.0.9
+## 1.0.7
 
-* Update Swift & Java code
-* Change Type Data
-* Update README
+* Fixed error in README, OpCountry now is only Country.
 
-## 1.1.0
+## 1.0.6
 
-* Add Address Model
-* Add Openpay Exceptions
-* Upgrade Card Information Model
-* Upgrade Token Openpay Model
-* Add Save Card Function
-* Delete old & deprecated files
+* Fixed error in example, OpCountry now is only Country.
 
-## 1.1.1
+## 1.0.5
 
-* Rename files
-* Changed README_ES.md
+* Fixed error in pubspec.yaml and added support to Peru.
 
-## 1.1.2
+## 1.0.4
 
-* Update libraries and packages
-* Updated README.md
-* Changed SDK constraint
+* Fixed Java plugin error.
 
-## 1.1.3
+## 1.0.3
 
-* Update libraries and packages
-* Updated README.md
-* Changed SDK constraint
+* Cammel case fixed.
 
-## 1.1.4
+## 1.0.2
 
-* Added a namespace to the android manifest file for new graddle version
-* Removed bit code from Openpay iOS XCFramework
+* Compilation errors fixed in iOS.
 
-## 1.1.5
+## 1.0.1
 
-* Added new official compiled OpenpayKit version to the package
+* Changes in README.md file.
+
+## 1.0.0
+
+* First release supporting Android, iOS and Web platforms.
