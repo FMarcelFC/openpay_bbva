@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.1
+* Added SPM support, fixed WASM/Web compatibility
+
 ## 1.2.0
 
 * Added platform support for Web, Windows, macOS, and Linux via `pluginClass: none`
@@ -10,6 +13,7 @@
 * Added Swift Package Manager (SPM) support for iOS
 * Updated iOS minimum deployment target to 14.3
 * Updated Openpaykit dependency to 0.0.6
+* Updated documentation 
 
 ## 1.1.5
 

@@ -1,6 +1,5 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform, TargetPlatform;
 import 'package:flutter/services.dart';
-import 'dart:io' show Platform;
 
 import '../enums/country.dart';
 import '../http/openpay_api.dart';
@@ -82,7 +81,7 @@ class OpenpayBBVA extends OpenpayApi {
   Future<String?> getDeviceID() async {
     // kIsWeb must be checked before accessing dart:io Platform,
     // because dart:io is not available on Web.
-    if (kIsWeb || (!Platform.isIOS && !Platform.isAndroid)) {
+    if (kIsWeb || (defaultTargetPlatform != TargetPlatform.iOS && defaultTargetPlatform != TargetPlatform.android)) {
       return null;
     }
     try {
