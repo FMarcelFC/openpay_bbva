@@ -1,6 +1,6 @@
 name: openpay_bbva
 description: A Flutter plugin for iOS and Android that tokenizes payments via the Openpay BBVA platform. Supports Web, Windows, macOS, and Linux for card tokenization via HTTP.
-version: 1.2.0
+version: 1.2.1
 homepage: https://github.com/FMarcelFC/openpay_bbva
 
 environment:
