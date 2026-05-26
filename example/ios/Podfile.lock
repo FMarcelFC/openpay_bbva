@@ -20,10 +20,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/openpay_bbva/ios"
 
 SPEC CHECKSUMS:
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  openpay_bbva: c4933458a8547ce157e6fca71d14bc57ff76a01a
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  openpay_bbva: df86807085fb3824cdf3a5530d7db4c2e71bd01f
   Openpaykit: bb26f158e75c6a45309887e9b8707b0e659996ed
 
-PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
+PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

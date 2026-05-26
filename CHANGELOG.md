@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.2
+* Fixed Flutter 3.30+ deprecation warning: replaced `pluginClass: none` entries with a top-level `platforms` declaration, preserving pub.dev platform support scores
+
 ## 1.2.1
 * Added SPM support, fixed WASM/Web compatibility
 

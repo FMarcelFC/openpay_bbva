@@ -47,7 +47,7 @@ Agrega `openpay_bbva` a tu `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  openpay_bbva: ^1.2.0
+  openpay_bbva: ^1.2.2
 ```
 
 Luego ejecuta:
